@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from itertools import chain
 from operator import getitem
 from collections import namedtuple
+from glob import iglob
 from os import path
 
 #with open("/Users/kdurril/Development/buckscounty/bucks/928471.html","r") as file:
@@ -15,17 +16,17 @@ class tableParse(object):
         self.record_id = record_id
         self.parse = None
 
-    def __str__():
-        return 
+    def __str__(self):
+        return self.record_id
+
+    def __repr__(self):
+        return self.record_id
     
     def get_table(self, soup=None):
         "retreive html tables"
         for table in soup.body.find_all('table'):
             if not table.table:            
                 yield table
-            #if table.table.table:
-            #else:
-            #    [[y.string for y in i.children] for i in ca[3].find_all('td')]
 
     def parse_table(self, table=None):
         for element in table:
@@ -60,12 +61,12 @@ class tableParse(object):
                                         'arrival','travel',
                                         'ins_date','ins_time',
                                         'license','closure'])
-        
         smry = Summary(self.parse[1][0][2],
                 self.parse[1][1][1],
+                self.parse[1][2][1],
                 self.parse[1][3][1].strip(),
-                self.parse[1][0][2],
-                self.parse[1][1][3],
+                self.parse[1][0][4],
+                self.parse[1][2][1],
                 self.parse[1][2][3],
                 self.parse[1][3][3])
         return smry
@@ -91,6 +92,7 @@ def test_parse(soup=None):
 
 def test_gather():
     coll = []
+    bucks_data = iglob("./bucks/*.html")
     for i in bucks_data:
         with open(i,'r') as file:
             soup = BeautifulSoup(file.read(),'lxml')
