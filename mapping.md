@@ -1,7 +1,7 @@
 ## Mapping
 
 **overview**
-Mapping a complex documents is work. Even having a visually styled document to work from is only so helpful. 
+Mapping a complex documents is work. Even having a visually styled document to work from is only so helpful.
 
 My goal is generally to have a serachable document on which I can also aggregate labeled fields. I keep a copy of the original document as I recieved it for reproducibility. Searching generally means having a text representation of the document.
 
