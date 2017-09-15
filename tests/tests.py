@@ -9,7 +9,7 @@ from parse import *
 
 class TestBucksParseMethods(unittest.TestCase):
     def setUp(self):
-        with open("/Users/kdurril/Development/buckscounty/bucks/928471.html","r") as file:
+        with open("./buckscounty/bucks/928471.html","r") as file:
             b = file.read()
             c = BeautifulSoup(b,'lxml')
             self.soup = tableParse(soup=c,record_id="928471")
