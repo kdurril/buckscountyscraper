@@ -4,6 +4,7 @@ from operator import getitem
 from collections import namedtuple
 from glob import iglob
 from os import path
+import json
 
 #with open("/Users/kdurril/Development/buckscounty/bucks/928471.html","r") as file:
 #        b = file.read()
@@ -114,6 +115,14 @@ class tableParse(object):
 
     def full_record(self):
         return (self.summary,self.client(),list(self.compliance_tuple()))
+
+    def full_record_to_json(self):
+        record = self.full_record()
+        to_json = {'client':{**{'record_id': self.record_id},
+                             **record[0]._asdict(),
+                             **(record[1]._asdict())},
+                   'compliance':[i._asdict() for i in record[2]]}
+        return to_json
 
 def test_gather():
     coll = []
