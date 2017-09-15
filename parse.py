@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from bs4 import BeautifulSoup
 from itertools import chain, islice
 from operator import getitem
@@ -6,12 +9,8 @@ from glob import iglob
 from os import path
 import json
 
-#with open("/Users/kdurril/Development/buckscounty/bucks/928471.html","r") as file:
-#        b = file.read()
-#        b = BeautifulSoup(b,'lxml')
-
 class tableParse(object):
-
+    "object to parse inspection and prep it for the db"
     def __init__(self, soup=None,record_id=None):
         "soup is a bs4 object, record_id is the file name"
         self.soup = soup
@@ -63,6 +62,7 @@ class tableParse(object):
         return self.parse
     
     def client(self):
+        "client tuple that should match prior inspections"
         #{'Food Facility', 'Address', 'City/State', 'Zip Code', 'Telephone'}
         Client = namedtuple('Client', ['food_facility', 'address', 'city_state', 'zip_code', 'telephone'])
         #return dict(tuple(x.string.strip() for x in y.children if x.string != None) for y in [list(i) for i in self.alt_parse()][2][0].children if y != '\n')
@@ -85,6 +85,7 @@ class tableParse(object):
             return [i for i in comply if len(i)>1 and getitem(i,0).isdigit()]
 
     def compliance_tuple(self):
+        "the compliance tuple"
         Compliance = namedtuple('Compliance',['tag','compliance',
                                               'label','cos',
                                               'repeat'])
@@ -98,6 +99,7 @@ class tableParse(object):
 
     @property
     def summary(self):
+        "info unique to each inspection"
         Summary = namedtuple('Summary',['violation','risk_count',
                                         'arrival','travel',
                                         'ins_date','ins_time',
@@ -114,12 +116,15 @@ class tableParse(object):
         return smry
 
     def full_record(self):
+        "summary, client, and the compliance observations"
+        #these are all namedtuples to stay lightweight
         return (self.summary,self.client(),list(self.compliance_tuple()))
 
     def full_record_to_json(self):
+        "dictionary observations prepped for json"
         record = self.full_record()
-        to_json = {'client':{**{'record_id': self.record_id},
-                             **record[0]._asdict(),
+        to_json = {'inspect_id': self.record_id,
+                   'client':{**record[0]._asdict(),
                              **(record[1]._asdict())},
                    'compliance':[i._asdict() for i in record[2]]}
         return to_json

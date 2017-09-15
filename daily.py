@@ -56,5 +56,5 @@ def get_txt(inspect_url=None,inspect_id=None):
             file.write(b.text)
 
 if __name__ == '__main__':
-    for x in bucks(inspect_id=928400):
+    for x in bucks(inspect_id=928700):
         get_txt(**x)
