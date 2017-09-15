@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import unittest
 import re
 from sys import path
@@ -14,10 +17,10 @@ class TestBucksParseMethods(unittest.TestCase):
             self.date_pat = '\d{2}/\d{2}/\d{4}'
             self.travel_pat = '\d{2}\.\d'
             self.digit_pat = '\d+'
-            self.binary_list = ["NO","YES"]
+            self.binary_list = ["NO","YES","N/A"]
 
     def test_isSoup(self):
-        self.assertTrue(self.soup.test_parse2())
+        self.assertTrue(self.soup.alt_parse())
     def test_isRecord_id(self):
         self.assertTrue(self.soup.record_id)
     def test_isParsed(self):
@@ -26,6 +29,10 @@ class TestBucksParseMethods(unittest.TestCase):
         self.assertTrue(self.soup.compliance)
     def test_isSummary(self):
         self.assertTrue(self.soup.summary)
+    def test_isFullRecord(self):
+        self.assertTrue(self.soup.full_record())
+    def test_isFullRecordJson(self):
+        self.assertTrue(self.soup.full_record_to_json())
     def test_isViolation(self):
         self.assertRegex(self.soup.summary.violation,self.digit_pat)
     def test_isRiskCount(self):
