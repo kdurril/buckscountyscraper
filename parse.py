@@ -12,9 +12,10 @@ from os import path
 class tableParse(object):
 
     def __init__(self, soup=None,record_id=None):
+        "soup is a bs4 object, record_id is the file name"
         self.soup = soup
         self.record_id = record_id
-        self.parse = None
+        self.parse = [list(i) for i in self.test_parse(self.soup)]
 
     def __str__(self):
         return self.record_id
@@ -51,16 +52,16 @@ class tableParse(object):
         for table in self.get_table(soup):
             yield self.parse_row(table_element=self.parse_table(table=table))
 
-    def test_parse2(self, soup=None):
-        for table in self.alt_table(soup):
-            yield self.parse_row(table_element=self.parse_table(table=table))
+    def test_parse2(self):
+        for table in self.alt_table():
+            yield self.parse_table(table=table)
 
     @property
     def parsed(self):
         self.parse = [list(i) for i in self.test_parse(self.soup)]
         return self.parse
     
-    @property
+    
     def compliance(self):
         if self.parse:
             comply = list(chain.from_iterable(self.parse[4:9]))
@@ -69,9 +70,19 @@ class tableParse(object):
             comply = chain.from_iterable(self.parsed()[4:9])
             return [i for i in comply if len(i)>1 and getitem(i,0).isdigit()]
 
+    def compliance_dict(self):
+        Compliance = namedtuple('Compliance',['tag#','compliance',
+                                              'label','cos',
+                                              'repeat'])
+        return ({'tag#':i[0],
+                 'compliance':i[1],
+                 'label': i[2],
+                 'cos':i[3],
+                 'repeat':i[4]} for i in self.compliance())
+
     @property
     def compliance2(self):
-        coll = [list(i) for i in self.test_parse(self.soup)]
+        coll = [list(parse_row(i)) for i in self.test_parse2()]
         comply = chain.from_iterable(coll[3:8])
         return [i for i in comply if len(i)>1 and getitem(i,0).isdigit()]
 
@@ -81,7 +92,8 @@ class tableParse(object):
                                         'arrival','travel',
                                         'ins_date','ins_time',
                                         'license','closure'])
-        smry = Summary(self.parse[1][0][2],
+        smry = Summary(
+                self.parse[1][0][2],
                 self.parse[1][1][1],
                 self.parse[1][2][1],
                 self.parse[1][3][1].strip(),
@@ -112,7 +124,7 @@ def test_parse(soup=None):
 
 def test_gather():
     coll = []
-    bucks_data = iglob("./bucks/*.html")
+    bucks_data = iglob("./bucks/92855*.html")
     for i in bucks_data:
         with open(i,'r') as file:
             soup = BeautifulSoup(file.read(),'lxml')
