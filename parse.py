@@ -62,8 +62,19 @@ class tableParse(object):
         return self.parse
     
     def client(self):
-        return dict(tuple(x.string.strip() for x in y.children if x.string != None) for y in [list(i) for i in self.alt_parse()][2][0].children if y != '\n')
-    
+        #{'Food Facility', 'Address', 'City/State', 'Zip Code', 'Telephone'}
+        Client = namedtuple('Client', ['food_facility', 'address', 'city_state', 'zip_code', 'telephone'])
+        #return dict(tuple(x.string.strip() for x in y.children if x.string != None) for y in [list(i) for i in self.alt_parse()][2][0].children if y != '\n')
+        coll_1 = []
+        for y in [list(i) for i in self.alt_parse()][2][0].children:
+            if y != '\n':
+                coll_2 = []
+                for x in y.children:
+                    if x.string != None:
+                        coll_2.append(x.string.strip())    
+                coll_1.append(tuple(coll_2))
+        return Client(*[i[1] for i in coll_1])
+
     def compliance(self):
         if self.parse:
             comply = list(chain.from_iterable(self.parse[4:9]))
