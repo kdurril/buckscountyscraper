@@ -137,6 +137,17 @@ def test_gather():
 #d = [list(i) for i in c.parsed]
 #compliance = chain.from_iterable(d[4:9])
 #compliance = [i for i in compliance if len(i)>1 and getitem(i,0).isdigit()]
-
+b = test_gather()
+c = b[0].test_parse2()
+d = [list(i) for i in c]
+#f = [i for i in d[2][0].children]
 #[[y.string for y in i.children] for i in ca[3].find_all('td')]
+
+[[x.string for x in y.children if x.string != None] for y in [list(i) for i in b[2].test_parse2()][2][0].children if y != '\n']
+
+
+
+
+#f = [i for i in d[2][0].children]
+#[[i.string for i in y.children] for y in f  if  y != '\n']
 
