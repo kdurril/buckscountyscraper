@@ -27,6 +27,16 @@ class tableParse(object):
         for table in soup.body.find_all('table'):
             if not table.table:            
                 yield table
+    
+    def alt_table(self):
+        "retreive html tables"
+        count = 0
+        for table in self.soup.body.find_all('table'):
+            if count in (1,2,3,6,7,8,10,11,12,19,20):            
+                yield table
+                count += 1
+            else:
+                count += 1
 
     def parse_table(self, table=None):
         for element in table:
@@ -39,6 +49,10 @@ class tableParse(object):
 
     def test_parse(self, soup=None):
         for table in self.get_table(soup):
+            yield self.parse_row(table_element=self.parse_table(table=table))
+
+    def test_parse2(self, soup=None):
+        for table in self.alt_table(soup):
             yield self.parse_row(table_element=self.parse_table(table=table))
 
     @property
@@ -54,6 +68,12 @@ class tableParse(object):
         else:
             comply = chain.from_iterable(self.parsed()[4:9])
             return [i for i in comply if len(i)>1 and getitem(i,0).isdigit()]
+
+    @property
+    def compliance2(self):
+        coll = [list(i) for i in self.test_parse(self.soup)]
+        comply = chain.from_iterable(coll[3:8])
+        return [i for i in comply if len(i)>1 and getitem(i,0).isdigit()]
 
     @property
     def summary(self):
