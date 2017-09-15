@@ -62,7 +62,7 @@ class tableParse(object):
         return self.parse
     
     def client(self):
-        return dict(tuple(x.string for x in y.children if x.string != None) for y in [list(i) for i in self.alt_parse()][2][0].children if y != '\n')
+        return dict(tuple(x.string.strip() for x in y.children if x.string != None) for y in [list(i) for i in self.alt_parse()][2][0].children if y != '\n')
     
     def compliance(self):
         if self.parse:
@@ -76,11 +76,7 @@ class tableParse(object):
         Compliance = namedtuple('Compliance',['tag','compliance',
                                               'label','cos',
                                               'repeat'])
-        return ({'tag#':i[0],
-                 'compliance':i[1],
-                 'label': i[2],
-                 'cos':i[3],
-                 'repeat':i[4]} for i in self.compliance())
+        return (Compliance(*i) for i in self.compliance())
 
     @property
     def compliance2(self):
@@ -104,6 +100,9 @@ class tableParse(object):
                 self.parse[1][2][3],
                 self.parse[1][3][3])
         return smry
+
+    def full_record(self):
+        return (self.summary,self.client(),list(self.compliance_dict()))
  
 def get_table(soup=None):
         "treive html tables"
