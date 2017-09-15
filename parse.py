@@ -83,7 +83,7 @@ class tableParse(object):
             comply = chain.from_iterable(self.parsed()[4:9])
             return [i for i in comply if len(i)>1 and getitem(i,0).isdigit()]
 
-    def compliance_dict(self):
+    def compliance_tuple(self):
         Compliance = namedtuple('Compliance',['tag','compliance',
                                               'label','cos',
                                               'repeat'])
@@ -113,7 +113,7 @@ class tableParse(object):
         return smry
 
     def full_record(self):
-        return (self.summary,self.client(),list(self.compliance_dict()))
+        return (self.summary,self.client(),list(self.compliance_tuple()))
 
 def test_gather():
     coll = []
