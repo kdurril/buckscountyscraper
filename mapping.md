@@ -11,7 +11,7 @@ Preping the document for strorage has additional considerations. However, a vari
 Bucks County data begins as HTML. It is designed with tables, so HTML tools like python's BeautifulSoup and lxml are wonderful resources.
 Even with these resources, the data in the documents was not so consistent that extracting it is was a one command process.
 I used Beatiful soup to review the tables of the document and the contents of each table. I made a basic outline to help me keep track of the documents. I maked the tables that I would parse with an "o" and then labeled the content. From there, I created a class to extract the text. The object included methods to step through various stages of extracting data so that the HTML document could become a representative JSON document. 
-I decomposed the document into summary, client, and compliance data. I didn't work toward including comments. From there, I used row and cell tags ('tr','td') to gather the compliance data that is table like. I created a namedtuple. I used a similar process to gather summary and client information. 
+I decomposed the document into summary, client, and compliance data. I didn't work toward including comments. I used a similar process to gather summary and client information. 
 
 ### basic outline
 0 x includes all
