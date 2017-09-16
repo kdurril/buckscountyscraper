@@ -1,12 +1,19 @@
-## Mapping
+## Document Mapping
 
 **overview**
-Mapping a complex documents is work. Even having a visually styled document to work from is only so helpful.
+My goal is generally to have a serachable document on which I can also aggregate labeled fields. I keep a copy of the original document as I recieved it for reproducibility. Searching often means augmenting the document such as having a mapping for normalization or a text representation without markup.
 
-My goal is generally to have a serachable document on which I can also aggregate labeled fields. I keep a copy of the original document as I recieved it for reproducibility. Searching generally means having a text representation of the document.
+**observations**
+Mapping a complex documents is work. Even having a visually styled document to work from is only so helpful. Additionally, if the data is similar to existing data, but from a different source, it should be mapped to a common standard for that domain.
+Preping the document for strorage has additional considerations. However, a variety of data is repeated for readability in documents I've worked with. Choices about what to include in a key-value redering.
 
-However, a variety of data is repeated for readability in documents I've worked with. Choices about what to include in a key-value redering.
+### Bucks County
+Bucks County data begins as HTML. It is designed with tables, so HTML tools like python's BeautifulSoup and lxml are wonderful resources.
+Even with these resources, the data in the documents was not so consistent that extracting it is was a one command process.
+I used Beatiful soup to review the tables of the document and the contents of each table. I made a basic outline to help me keep track of the documents. I maked the tables that I would parse with an "o" and then labeled the content. From there, I created a class to extract the text. The object included methods to step through various stages of extracting data so that the HTML document could become a representative JSON document. 
+I decomposed the document into summary, client, and compliance data. I didn't work toward including comments. From there, I used row and cell tags ('tr','td') to gather the compliance data that is table like. I created a namedtuple. I used a similar process to gather summary and client information. 
 
+### basic outline
 0 x includes all
 1 o header
 2 o summary
