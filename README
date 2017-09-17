@@ -1,0 +1,29 @@
+Food Facilities Inspection Report Aggregator
+for Bucks County, PA Department of Health
+
+Bucks County conducts inspections of food facilities as an environmental health measure. Inspection records are accessible via the County's website. While the records are available, interface constricts the how the data may be assessed. The County's site includes "Please remember that any inspection is a "snapshot" of the day and time of the inspection. An inspection conducted on any given day may not be representative of the overall, long-term cleanliness of an establishment." While each record is a snapshot, a series of inspections may represent the "overall" cleanliness of an establishment. Yet, the site doesn't have measures to aggregate accross records so that the public can infer "overall" cleanliness. By collecting inspection records, I hope to be infer the general conditions of an individual establishments.
+
+
+This is a tool for scraping and parsing individual inspections for storage a json documents. The json version of the documents can be stored in a variety of wasy.
+The tool also includes tests to check that output data is as expected.
+
+Usage:
+This project was developed in Python 3.6.1
+The database isn't necessary, use daily.bucks and daily.get_txt to request html
+Create a database e.g. db.createdb to store documents to db
+Adjust main's daily.bucks to specify a start id
+
+bucks
+- bucks 
+  "local source files output from daily.py"
+- src
+  - daily.py
+  - db.py
+  - main.py 
+  - parse.py
+- test 
+  - tests.py
+
+Bucks County Health Department, Health Inspection
+http://www.buckscounty.org/government/healthservices/HealthDepartment/Inspections
+
