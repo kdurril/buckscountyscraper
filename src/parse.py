@@ -141,7 +141,7 @@ def test_gather():
     return coll
 
 def web_gather(daily_dict=None):
-    "pass in a {'request':, 'record_id':} dict"
+    "pass in a {'request':, 'inspect_id':} dict"
     soup = BeautifulSoup(daily_dict['request'].text, 'lxml')
     parse = tableParse(soup, daily_dict['inspect_id'])
     return parse
