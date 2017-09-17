@@ -49,12 +49,16 @@ def grab_txt(inspect_url=None,inspect_id=None):
             print(viewout.getheader('Content-Type'))
 
 '''http://pa.healthinspections.us/_templates/100/Food%20Inspection/_report_full.cfm?inspectionID=928462&domainID=100'''
-def get_txt(inspect_url=None,inspect_id=None):
+def get_txt(inspect_url=None,inspect_id=None, to_file=False):
     b = r.get(inspect_url)
-    if b.headers['Content-Type'] == 'text/html;charset=UTF-8':
-        with open(str(inspect_id)+".html",'w') as file:
-            file.write(b.text)
+    if to_file:
+        if b.headers['Content-Type'] == 'text/html;charset=UTF-8':
+            with open(str(inspect_id)+".html",'w') as file:
+                file.write(b.text)
+        return {'request':b,'inspect_id':inspect_id}
+    else:
+        return {'request':b,'inspect_id':inspect_id}
 
 if __name__ == '__main__':
-    for x in bucks(inspect_id=928700):
-        get_txt(**x)
+    for x in bucks(inspect_id=928900):
+        get_txt(**x,to_file=False)
