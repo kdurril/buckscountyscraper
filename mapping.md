@@ -13,27 +13,28 @@ Even with these resources, the data in the documents was not so consistent that 
 I used Beatiful soup to review the tables of the document and the contents of each table. I made a basic outline to help me keep track of the documents. I maked the tables that I would parse with an "o" and then labeled the content. From there, I created a class to extract the text. The object included methods to step through various stages of extracting data so that the HTML document could become a representative JSON document. 
 I decomposed the document into summary, client, and compliance data. I didn't work toward including comments. I used a similar process to gather summary and client information. 
 
-### basic outline
-0 x includes all
-1 o header
-2 o summary
-3 o client
-4 x label info
-5 x label info
-6 o compliance
-7 o compliance
-8 o compliance
-9 x retail practice
-10 o compliance
-11 o compliance
-12 o compliance 
-13 x signature
-14 x signature
-15 x signature
-16 
-17 x summary on page 2
-18 x client on page 2
-19 o temperature observation
-20 o observeration
-21 x signature
-22 x signature
+### |  basic | outline
+--- | ------ | -------
+0 | x | includes all
+1 | o | header
+2 | o | summary
+3 | o | client
+4 | x | label info
+5 | x | label info
+6 | o | compliance
+7 | o | compliance
+8 | o | compliance
+9 | x | retail practice
+10| o | compliance
+11| o | compliance
+12| o | compliance 
+13| x | signature
+14| x | signature
+15| x | signature
+16|   |
+17| x | summary on page 2
+18| x | client on page 2
+19| o | temperature observation
+20| o | observeration
+21| x | signature
+22| x | signature
