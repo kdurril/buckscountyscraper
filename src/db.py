@@ -5,17 +5,6 @@ import psycopg2
 import glob
 import json
 
-def test_gather():
-    coll = []
-    bucks_data = iglob("../bucks/*.html")
-    for i in bucks_data:
-        with open(i,'r') as file:
-            soup = BeautifulSoup(file.read(),'lxml')
-            record_id = path.basename(file.name[:-5])
-            pars = tableParse(soup,record_id)
-            coll.append(pars)
-    return coll
-
 def createdb(database='db', user='user', password=None):
     con = psycopg2.connect(database=database, user=user, password=password)
     cur = con.cursor()
