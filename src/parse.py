@@ -14,7 +14,7 @@ class tableParse(object):
     def __init__(self, soup=None,record_id=None):
         "soup is a bs4 object, record_id is the file name"
         self.soup = soup
-        self.record_id = record_id
+        self.record_id = str(record_id)
         self.parse = [list(i) for i in self.test_parse(self.soup)]
 
     def __str__(self):
@@ -30,7 +30,7 @@ class tableParse(object):
                 yield table
     
     def alt_table(self):
-        "retreive html tables"
+        "retreive html tables more generally"
         count = 0
         for table in self.soup.body.find_all('table'):
             if count in (1,2,3,6,7,8,10,11,12,19,20):            
@@ -139,3 +139,10 @@ def test_gather():
             pars = tableParse(soup,record_id)
             coll.append(pars)
     return coll
+
+def web_gather(daily_dict=None):
+    "pass in a {'request':, 'record_id':} dict"
+    soup = BeautifulSoup(daily_dict['request'].text, 'lxml')
+    parse = tableParse(soup, daily_dict['inspect_id'])
+    return parse
+
