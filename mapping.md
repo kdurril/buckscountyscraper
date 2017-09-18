@@ -38,30 +38,3 @@ I decomposed the document into summary, client, and compliance data. I didn't wo
 | 21| x | signature |
 | 22| x | signature | 
 
-4dac33ee83e6ac44b2de9cb079624afbb3f9c17
-
-
-### basic outline
-0 x includes all
-1 o header
-2 o summary
-3 o client
-4 x label info
-5 x label info
-6 o compliance
-7 o compliance
-8 o compliance
-9 x retail practice
-10 o compliance
-11 o compliance
-12 o compliance 
-13 x signature
-14 x signature
-15 x signature
-16 
-17 x summary on page 2
-18 x client on page 2
-19 o temperature observation
-20 o observeration
-21 x signature
-22 x signature
